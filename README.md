@@ -94,18 +94,3 @@ A estrutura poderá ser alterada conforme o desenvolvimento do projeto.
 Projeto desenvolvido para aplicação prática dos conhecimentos de:
 
 `HTML5` • `CSS3` • `JavaScript` • `DOM` • `Flexbox` • `Grid` • `Responsividade`
-
-## Cronograma
-
-**02/10/2026** — Entrega da documentação  
-**16/10/2026** — Entrega do projeto funcionando e apresentação
-
-## Status do projeto
-
-**Em desenvolvimento**
-
-Atualmente o projeto encontra-se na etapa de planejamento e documentação.
-
----
-
-Desenvolvido pelo **Grupo 3** durante o curso de Desenvolvedor Web do Senac.
