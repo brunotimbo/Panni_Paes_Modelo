@@ -1,3 +1,5 @@
+const URL_API = "http://localhost:3000";
+
 // =========================================
 // PRODUTOS - SIMULAÇÃO DA BASE DE DADOS
 // =========================================
@@ -129,40 +131,28 @@ let categoriaAtual = "Todos";
 // ELEMENTOS DO HTML
 // =========================================
 
-const categoriasElemento =
-    document.getElementById("categorias");
+const categoriasElemento = document.getElementById("categorias");
 
-const listaProdutosElemento =
-    document.getElementById("listaProdutos");
+const listaProdutosElemento = document.getElementById("listaProdutos");
 
-const listaPedidoElemento =
-    document.getElementById("listaPedido");
+const listaPedidoElemento = document.getElementById("listaPedido");
 
-const valorTotalElemento =
-    document.getElementById("valorTotal");
+const valorTotalElemento = document.getElementById("valorTotal");
 
-const btnFinalizar =
-    document.getElementById("btnFinalizar");
+const btnFinalizar = document.getElementById("btnFinalizar");
 
+const modalPersonalizacao = document.getElementById("modalPersonalizacao");
 
-const modalPersonalizacao =
-    document.getElementById("modalPersonalizacao");
+const nomeProdutoModal = document.getElementById("nomeProdutoModal");
 
-const nomeProdutoModal =
-    document.getElementById("nomeProdutoModal");
+const formPersonalizacao = document.getElementById("formPersonalizacao");
 
-const formPersonalizacao =
-    document.getElementById("formPersonalizacao");
-
-const btnFecharModal =
-    document.getElementById("btnFecharModal");
+const btnFecharModal = document.getElementById("btnFecharModal");
 
 
-const modalConfirmacao =
-    document.getElementById("modalConfirmacao");
+const modalConfirmacao = document.getElementById("modalConfirmacao");
 
-const btnNovoPedido =
-    document.getElementById("btnNovoPedido");
+const btnNovoPedido = document.getElementById("btnNovoPedido");
 
 
 // =========================================
@@ -252,115 +242,134 @@ function renderizarCategorias() {
 // PRODUTOS
 // =========================================
 
+// requisição
+function carregarProdutos () {
+
+    fetch(`${URL_API}/produtos`)
+
+        .then(function (resposta) {
+            return resposta.json();
+        })
+
+        .then(function (listaDeProdutos) {
+            listaProdutosElemento.innerHTML = '';
+
+            listaDeProdutos.forEach(function (prod) {
+                const artigo = document.createElement('article');
+                artigo.className = "produto-card";
+                artigo.innerHTML = `
+                    <div class="produto-imagem" aria-hidden="true"> ${prod.imagem} </div>
+                    <div class="produto-conteudo">
+                        <p class="produto-categoria"> ${prod.categoria} </p>
+                        <h3> ${prod.nome} </h3>
+                        <p class="produto-descricao"> ${prod.descricao} </p>
+                        <div class="produto-rodape">
+                            <span class="produto-preco"> ${formatarMoeda(prod.preco)} </span>
+                            <button class="produto-adicionar" type="button" data-id="${prod.id}"> Adicionar </button>
+                        </div>
+                    </div>
+                `;
+                listaProdutosElemento.appendChild(artigo);
+            });
+
+    const botoesAdicionar = document.querySelectorAll(".produto-adicionar");
+
+    botoesAdicionar.forEach(function (botao) {
+            botao.addEventListener("click", function () {
+                    const id = Number(botao.dataset.id);
+                    selecionarProduto(id);
+                }
+            );
+        }
+    );
+        })
+}
+
 function renderizarProdutos() {
 
     listaProdutosElemento.innerHTML = "";
 
-
-    const produtosFiltrados =
-        categoriaAtual === "Todos"
-
-            ? produtos
-
-            : produtos.filter(
+    const produtosFiltrados = categoriaAtual === "Todos" ? produtos : produtos.filter(
                 function (produto) {
-
-                    return produto.categoria ===
-                        categoriaAtual;
-
+                    return produto.categoria === categoriaAtual;
                 }
             );
 
-
-    produtosFiltrados.forEach(
-        function (produto) {
-
-            const artigo =
-                document.createElement("article");
-
-            artigo.className =
-                "produto-card";
-
-
+    produtosFiltrados.forEach(function (produto) {
+            const artigo = document.createElement("article");
+            artigo.className = "produto-card";
             artigo.innerHTML = `
-
-                <div
-                    class="produto-imagem"
-                    aria-hidden="true"
-                >
+                <div class="produto-imagem" aria-hidden="true">
                     ${produto.icone}
                 </div>
-
                 <div class="produto-conteudo">
-
-                    <p class="produto-categoria">
-                        ${produto.categoria}
-                    </p>
-
-                    <h3>
-                        ${produto.nome}
-                    </h3>
-
-                    <p class="produto-descricao">
-                        ${produto.descricao}
-                    </p>
-
+                    <p class="produto-categoria"> ${produto.categoria} </p>
+                    <h3> ${produto.nome} </h3>
+                    <p class="produto-descricao"> ${produto.descricao} </p>
                     <div class="produto-rodape">
-
-                        <span class="produto-preco">
-
-                            ${formatarMoeda(produto.preco)}
-
-                        </span>
-
-                        <button
-                            class="produto-adicionar"
-                            type="button"
-                            data-id="${produto.id}"
-                        >
-                            Adicionar
-                        </button>
-
+                        <span class="produto-preco"> ${formatarMoeda(produto.preco)} </span>
+                        <button class="produto-adicionar" type="button" data-id="${produto.id}"> Adicionar </button>
                     </div>
-
                 </div>
-
             `;
-
-
-            listaProdutosElemento
-                .appendChild(artigo);
-
+            listaProdutosElemento.appendChild(artigo);
         }
     );
 
+    const botoesAdicionar = document.querySelectorAll(".produto-adicionar");
 
-    const botoesAdicionar =
-        document.querySelectorAll(
-            ".produto-adicionar"
-        );
-
-
-    botoesAdicionar.forEach(
-        function (botao) {
-
-            botao.addEventListener(
-                "click",
-                function () {
-
-                    const id =
-                        Number(botao.dataset.id);
-
+    botoesAdicionar.forEach(function (botao) {
+            botao.addEventListener("click", function () {
+                    const id = Number(botao.dataset.id);
                     selecionarProduto(id);
-
                 }
             );
-
         }
     );
-
 }
 
+
+//     listaProdutosElemento.innerHTML = "";
+
+//     const produtosFiltrados = categoriaAtual === "Todos" ? produtos : produtos.filter(
+//                 function (produto) {
+//                     return produto.categoria === categoriaAtual;
+//                 }
+//             );
+
+//     produtosFiltrados.forEach(function (produto) {
+//             const artigo = document.createElement("article");
+//             artigo.className = "produto-card";
+//             artigo.innerHTML = `
+//                 <div class="produto-imagem" aria-hidden="true">
+//                     ${produto.icone}
+//                 </div>
+//                 <div class="produto-conteudo">
+//                     <p class="produto-categoria"> ${produto.categoria} </p>
+//                     <h3> ${produto.nome} </h3>
+//                     <p class="produto-descricao"> ${produto.descricao} </p>
+//                     <div class="produto-rodape">
+//                         <span class="produto-preco"> ${formatarMoeda(produto.preco)} </span>
+//                         <button class="produto-adicionar" type="button" data-id="${produto.id}"> Adicionar </button>
+//                     </div>
+//                 </div>
+//             `;
+//             listaProdutosElemento
+//                 .appendChild(artigo);
+//         }
+//     );
+
+//     const botoesAdicionar = document.querySelectorAll(".produto-adicionar");
+
+//     botoesAdicionar.forEach(function (botao) {
+//             botao.addEventListener("click", function () {
+//                     const id = Number(botao.dataset.id);
+//                     selecionarProduto(id);
+//                 }
+//             );
+//         }
+//     );
+// }
 
 // =========================================
 // SELEÇÃO DO PRODUTO
