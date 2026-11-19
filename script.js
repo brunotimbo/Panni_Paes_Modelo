@@ -1,4 +1,4 @@
-const URL_API = "http://localhost:3000";
+const URL_API = "https://panni-paes-backend.onrender.com/";
 
 // =========================================
 // PRODUTOS - SIMULAÇÃO DA BASE DE DADOS
