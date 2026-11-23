@@ -1,120 +1,121 @@
-//const URL_API = "https://panni-paes-backend.onrender.com";
-const URL_API = "http://localhost:3000";
+const URL_API = "https://panni-paes-backend.onrender.com";
+//const URL_API = "http://localhost:3000";
 
 // =========================================
 // PRODUTOS - SIMULAÇÃO DA BASE DE DADOS
 // =========================================
 
-const produtos = [
-    {
-        id: 1,
-        nome: "Pão francês",
-        categoria: "Pães",
-        preco: 1.00,
-        icone: "🥖",
-        descricao: "Pão tradicional, crocante por fora e macio por dentro."
-    },
-    {
-        id: 2,
-        nome: "Pão de queijo",
-        categoria: "Pães",
-        preco: 4.50,
-        icone: "🧀",
-        descricao: "Pão de queijo assado, ideal para acompanhar o café."
-    },
-    {
-        id: 3,
-        nome: "Croissant",
-        categoria: "Pães",
-        preco: 8.00,
-        icone: "🥐",
-        descricao: "Massa folhada leve e amanteigada."
-    },
-    {
-        id: 4,
-        nome: "Coxinha",
-        categoria: "Salgados",
-        preco: 7.50,
-        icone: "🍗",
-        descricao: "Salgado recheado com frango temperado."
-    },
-    {
-        id: 5,
-        nome: "Empada",
-        categoria: "Salgados",
-        preco: 7.00,
-        icone: "🥧",
-        descricao: "Empada assada com recheio de frango."
-    },
-    {
-        id: 6,
-        nome: "Queijo",
-        categoria: "Frios",
-        preco: 6.50,
-        icone: "🧀",
-        descricao: "Porção de queijo fatiado para o seu pedido."
-    },
-    {
-        id: 7,
-        nome: "Presunto",
-        categoria: "Frios",
-        preco: 5.50,
-        icone: "🥓",
-        descricao: "Porção de presunto fatiado."
-    },
-    {
-        id: 8,
-        nome: "Fatia de bolo",
-        categoria: "Doces",
-        preco: 9.00,
-        icone: "🍰",
-        descricao: "Fatia de bolo do dia."
-    },
-    {
-        id: 9,
-        nome: "Sonho",
-        categoria: "Doces",
-        preco: 6.00,
-        icone: "🍩",
-        descricao: "Massa macia com recheio doce."
-    },
-    {
-        id: 10,
-        nome: "Café expresso",
-        categoria: "Cafés",
-        preco: 5.00,
-        icone: "☕",
-        descricao: "Café expresso preparado na hora.",
-        personalizavel: true
-    },
-    {
-        id: 11,
-        nome: "Café com leite",
-        categoria: "Cafés",
-        preco: 7.00,
-        icone: "☕",
-        descricao: "Café com leite quente e cremoso.",
-        personalizavel: true
-    },
-    {
-        id: 12,
-        nome: "Suco de laranja",
-        categoria: "Bebidas",
-        preco: 8.50,
-        icone: "🍊",
-        descricao: "Suco de laranja para acompanhar seu lanche."
-    },
-    {
-        id: 13,
-        nome: "Água mineral",
-        categoria: "Bebidas",
-        preco: 4.00,
-        icone: "💧",
-        descricao: "Garrafa de água mineral."
-    }
-];
+// const produtos = [
+//     {
+//         id: 1,
+//         nome: "Pão francês",
+//         categoria: "Pães",
+//         preco: 1.00,
+//         icone: "🥖",
+//         descricao: "Pão tradicional, crocante por fora e macio por dentro."
+//     },
+//     {
+//         id: 2,
+//         nome: "Pão de queijo",
+//         categoria: "Pães",
+//         preco: 4.50,
+//         icone: "🧀",
+//         descricao: "Pão de queijo assado, ideal para acompanhar o café."
+//     },
+//     {
+//         id: 3,
+//         nome: "Croissant",
+//         categoria: "Pães",
+//         preco: 8.00,
+//         icone: "🥐",
+//         descricao: "Massa folhada leve e amanteigada."
+//     },
+//     {
+//         id: 4,
+//         nome: "Coxinha",
+//         categoria: "Salgados",
+//         preco: 7.50,
+//         icone: "🍗",
+//         descricao: "Salgado recheado com frango temperado."
+//     },
+//     {
+//         id: 5,
+//         nome: "Empada",
+//         categoria: "Salgados",
+//         preco: 7.00,
+//         icone: "🥧",
+//         descricao: "Empada assada com recheio de frango."
+//     },
+//     {
+//         id: 6,
+//         nome: "Queijo",
+//         categoria: "Frios",
+//         preco: 6.50,
+//         icone: "🧀",
+//         descricao: "Porção de queijo fatiado para o seu pedido."
+//     },
+//     {
+//         id: 7,
+//         nome: "Presunto",
+//         categoria: "Frios",
+//         preco: 5.50,
+//         icone: "🥓",
+//         descricao: "Porção de presunto fatiado."
+//     },
+//     {
+//         id: 8,
+//         nome: "Fatia de bolo",
+//         categoria: "Doces",
+//         preco: 9.00,
+//         icone: "🍰",
+//         descricao: "Fatia de bolo do dia."
+//     },
+//     {
+//         id: 9,
+//         nome: "Sonho",
+//         categoria: "Doces",
+//         preco: 6.00,
+//         icone: "🍩",
+//         descricao: "Massa macia com recheio doce."
+//     },
+//     {
+//         id: 10,
+//         nome: "Café expresso",
+//         categoria: "Cafés",
+//         preco: 5.00,
+//         icone: "☕",
+//         descricao: "Café expresso preparado na hora.",
+//         personalizavel: true
+//     },
+//     {
+//         id: 11,
+//         nome: "Café com leite",
+//         categoria: "Cafés",
+//         preco: 7.00,
+//         icone: "☕",
+//         descricao: "Café com leite quente e cremoso.",
+//         personalizavel: true
+//     },
+//     {
+//         id: 12,
+//         nome: "Suco de laranja",
+//         categoria: "Bebidas",
+//         preco: 8.50,
+//         icone: "🍊",
+//         descricao: "Suco de laranja para acompanhar seu lanche."
+//     },
+//     {
+//         id: 13,
+//         nome: "Água mineral",
+//         categoria: "Bebidas",
+//         preco: 4.00,
+//         icone: "💧",
+//         descricao: "Garrafa de água mineral."
+//     }
+// ];
 
 const categorias = [
+    "Todos",
     "Pães",
     "Salgados",
     "Frios",
@@ -182,7 +183,7 @@ function formatarMoeda(valor) {
 
 function buscarProduto(id) {
 
-    return produtos.find(function (produto) {
+    return produtos_2.find(function (produto) {
         return produto.id === id;
     });
 
@@ -297,36 +298,36 @@ function carregarProdutos() {
 
             produtos_2 = listaDeProdutos;
 
-            // listaProdutosElemento.innerHTML = '';
+            listaProdutosElemento.innerHTML = '';
 
-            // produtos_2.forEach(function (prod) {
-            //     const artigo = document.createElement('article');
-            //     artigo.className = "produto-card";
-            //     artigo.innerHTML = `
-            //         <div class="produto-imagem" aria-hidden="true"> ${prod.imagem} </div>
-            //         <div class="produto-conteudo">
-            //             <p class="produto-categoria"> ${prod.categoria} </p>
-            //             <h3> ${prod.nome} </h3>
-            //             <p class="produto-descricao"> ${prod.descricao} </p>
-            //             <div class="produto-rodape">
-            //                 <span class="produto-preco"> ${formatarMoeda(prod.preco)} </span>
-            //                 <button class="produto-adicionar" type="button" data-id="${prod.id}"> Adicionar </button>
-            //             </div>
-            //         </div>
-            //     `;
-            //     listaProdutosElemento.appendChild(artigo);
-            // });
+            produtos_2.forEach(function (prod) {
+                const artigo = document.createElement('article');
+                artigo.className = "produto-card";
+                artigo.innerHTML = `
+                    <div class="produto-imagem" aria-hidden="true"> ${prod.imagem} </div>
+                    <div class="produto-conteudo">
+                        <p class="produto-categoria"> ${prod.categoria} </p>
+                        <h3> ${prod.nome} </h3>
+                        <p class="produto-descricao"> ${prod.descricao} </p>
+                        <div class="produto-rodape">
+                            <span class="produto-preco"> ${formatarMoeda(prod.preco)} </span>
+                            <button class="produto-adicionar" type="button" data-id="${prod.id}"> Adicionar </button>
+                        </div>
+                    </div>
+                `;
+                listaProdutosElemento.appendChild(artigo);
+            });
 
-            // const botoesAdicionar = document.querySelectorAll(".produto-adicionar");
+            const botoesAdicionar = document.querySelectorAll(".produto-adicionar");
 
-            // botoesAdicionar.forEach(function (botao) {
-            //     botao.addEventListener("click", function () {
-            //         const id = Number(botao.dataset.id);
-            //         selecionarProduto(id);
-            //     }
-            //     );
-            // }
-            // );
+            botoesAdicionar.forEach(function (botao) {
+                botao.addEventListener("click", function () {
+                    const id = Number(botao.dataset.id);
+                    selecionarProduto(id);
+                }
+                );
+            }
+            );
         })
 }
 
@@ -335,16 +336,19 @@ function renderizarProdutos() {
     listaProdutosElemento.innerHTML = "";
 
 
+
     const produtosFiltrados = categoriaAtual === "Todos" ? produtos_2 : produtos_2.filter(function (produto) {
-                    return produto.categoria === categoriaAtual;
-                }
-            );
+        return produto.categoria === categoriaAtual;
+    }
+    );
+
+    console.log(produtosFiltrados)
 
 
     produtosFiltrados.forEach(function (produto) {
-            const artigo = document.createElement("article");
-            artigo.className = "produto-card";
-            artigo.innerHTML = `
+        const artigo = document.createElement("article");
+        artigo.className = "produto-card";
+        artigo.innerHTML = `
                 <div class="produto-imagem" aria-hidden="true">
                     ${produto.imagem}
                 </div>
@@ -358,19 +362,19 @@ function renderizarProdutos() {
                     </div>
                 </div>
             `;
-            listaProdutosElemento.appendChild(artigo);
-        }
+        listaProdutosElemento.appendChild(artigo);
+    }
     );
 
     const botoesAdicionar = document.querySelectorAll(".produto-adicionar");
 
     botoesAdicionar.forEach(function (botao) {
-            botao.addEventListener("click", function () {
-                    const id = Number(botao.dataset.id);
-                    selecionarProduto(id);
-                }
-            );
+        botao.addEventListener("click", function () {
+            const id = Number(botao.dataset.id);
+            selecionarProduto(id);
         }
+        );
+    }
     );
 }
 
