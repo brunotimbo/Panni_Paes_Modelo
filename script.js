@@ -114,6 +114,16 @@ const produtos = [
     }
 ];
 
+const categorias = [
+    "Pães",
+    "Salgados",
+    "Frios",
+    "Doces",
+    "Bebidas",
+];
+
+let produtos_2 = [];
+
 
 // =========================================
 // VARIÁVEIS DO SISTEMA
@@ -185,58 +195,87 @@ function buscarProduto(id) {
 
 function renderizarCategorias() {
 
-    const categorias = [
-        "Todos",
-        ...new Set(
-            produtos.map(function (produto) {
-                return produto.categoria;
-            })
-        )
-    ];
-
     categoriasElemento.innerHTML = "";
 
+    categorias.forEach(categoria => {
 
-    categorias.forEach(function (categoria) {
-
-        const botao =
-            document.createElement("button");
-
+        const botao = document.createElement("button");
         botao.type = "button";
-
-        botao.className =
-            "categoria-btn";
-
-        botao.textContent =
-            categoria;
-
+        botao.className = "categoria-btn";
+        botao.textContent = categoria;
 
         if (categoria === categoriaAtual) {
-
-            botao.classList.add("ativa");
-
+            botao.classList.add("ativa")
         }
 
+        botao.addEventListener("click", function () {
+            categoriaAtual = categoria;
+            console.log(categoriaAtual)
+            renderizarCategorias();
+            renderizarProdutos();
+        })
 
-        botao.addEventListener(
-            "click",
-            function () {
-
-                categoriaAtual = categoria;
-
-                renderizarCategorias();
-
-                carregarProdutos();
-
-            }
-        );
-
-
-        categoriasElemento.appendChild(botao);
+        categoriasElemento.appendChild(botao)
 
     });
-
 }
+
+//     const categorias = [
+//         "Todos",
+//         ...new Set(
+//             produtos_2.map(function (produto) {
+//                 return produto.categoria;
+//             })
+//         )
+//     ];
+
+//     console.log(categoriaAtual)
+
+//     categoriasElemento.innerHTML = "";
+
+
+//     categorias.forEach(function (categoria) {
+
+//         const botao =
+//             document.createElement("button");
+
+//         botao.type = "button";
+
+//         botao.className =
+//             "categoria-btn";
+
+//         botao.textContent =
+//             categoria;
+
+
+//         if (categoria === categoriaAtual) {
+
+//             botao.classList.add("ativa");
+
+//         }
+
+
+//         botao.addEventListener(
+//             "click",
+//             function () {
+
+//                 categoriaAtual = categoria;
+
+//                 console.log(categoriaAtual)
+
+//                 renderizarCategorias();
+
+//                 carregarProdutos();
+
+//             }
+//         );
+
+
+//         categoriasElemento.appendChild(botao);
+
+//     });
+
+// }
 
 
 // =========================================
@@ -246,92 +285,94 @@ function renderizarCategorias() {
 // requisição
 function carregarProdutos() {
 
-    console.log("carregarProdutos()")
-
     fetch(`${URL_API}/produtos`)
 
         .then(function (resposta) {
-            console.log(resposta)
             return resposta.json();
         })
 
         .then(function (listaDeProdutos) {
-            console.log(listaDeProdutos)
-            listaProdutosElemento.innerHTML = '';
 
-            listaDeProdutos.forEach(function (prod) {
-                const artigo = document.createElement('article');
-                artigo.className = "produto-card";
-                artigo.innerHTML = `
-                    <div class="produto-imagem" aria-hidden="true"> ${prod.imagem} </div>
-                    <div class="produto-conteudo">
-                        <p class="produto-categoria"> ${prod.categoria} </p>
-                        <h3> ${prod.nome} </h3>
-                        <p class="produto-descricao"> ${prod.descricao} </p>
-                        <div class="produto-rodape">
-                            <span class="produto-preco"> ${formatarMoeda(prod.preco)} </span>
-                            <button class="produto-adicionar" type="button" data-id="${prod.id}"> Adicionar </button>
-                        </div>
-                    </div>
-                `;
-                listaProdutosElemento.appendChild(artigo);
-            });
 
-            const botoesAdicionar = document.querySelectorAll(".produto-adicionar");
 
-            botoesAdicionar.forEach(function (botao) {
-                botao.addEventListener("click", function () {
-                    const id = Number(botao.dataset.id);
-                    selecionarProduto(id);
-                }
-                );
-            }
-            );
+            produtos_2 = listaDeProdutos;
+
+            // listaProdutosElemento.innerHTML = '';
+
+            // produtos_2.forEach(function (prod) {
+            //     const artigo = document.createElement('article');
+            //     artigo.className = "produto-card";
+            //     artigo.innerHTML = `
+            //         <div class="produto-imagem" aria-hidden="true"> ${prod.imagem} </div>
+            //         <div class="produto-conteudo">
+            //             <p class="produto-categoria"> ${prod.categoria} </p>
+            //             <h3> ${prod.nome} </h3>
+            //             <p class="produto-descricao"> ${prod.descricao} </p>
+            //             <div class="produto-rodape">
+            //                 <span class="produto-preco"> ${formatarMoeda(prod.preco)} </span>
+            //                 <button class="produto-adicionar" type="button" data-id="${prod.id}"> Adicionar </button>
+            //             </div>
+            //         </div>
+            //     `;
+            //     listaProdutosElemento.appendChild(artigo);
+            // });
+
+            // const botoesAdicionar = document.querySelectorAll(".produto-adicionar");
+
+            // botoesAdicionar.forEach(function (botao) {
+            //     botao.addEventListener("click", function () {
+            //         const id = Number(botao.dataset.id);
+            //         selecionarProduto(id);
+            //     }
+            //     );
+            // }
+            // );
         })
 }
 
-// function renderizarProdutos() {
+function renderizarProdutos() {
 
-//     listaProdutosElemento.innerHTML = "";
+    listaProdutosElemento.innerHTML = "";
 
-//     const produtosFiltrados = categoriaAtual === "Todos" ? produtos : produtos.filter(
-//                 function (produto) {
-//                     return produto.categoria === categoriaAtual;
-//                 }
-//             );
 
-//     produtosFiltrados.forEach(function (produto) {
-//             const artigo = document.createElement("article");
-//             artigo.className = "produto-card";
-//             artigo.innerHTML = `
-//                 <div class="produto-imagem" aria-hidden="true">
-//                     ${produto.icone}
-//                 </div>
-//                 <div class="produto-conteudo">
-//                     <p class="produto-categoria"> ${produto.categoria} </p>
-//                     <h3> ${produto.nome} </h3>
-//                     <p class="produto-descricao"> ${produto.descricao} </p>
-//                     <div class="produto-rodape">
-//                         <span class="produto-preco"> ${formatarMoeda(produto.preco)} </span>
-//                         <button class="produto-adicionar" type="button" data-id="${produto.id}"> Adicionar </button>
-//                     </div>
-//                 </div>
-//             `;
-//             listaProdutosElemento.appendChild(artigo);
-//         }
-//     );
+    const produtosFiltrados = categoriaAtual === "Todos" ? produtos_2 : produtos_2.filter(function (produto) {
+                    return produto.categoria === categoriaAtual;
+                }
+            );
 
-//     const botoesAdicionar = document.querySelectorAll(".produto-adicionar");
 
-//     botoesAdicionar.forEach(function (botao) {
-//             botao.addEventListener("click", function () {
-//                     const id = Number(botao.dataset.id);
-//                     selecionarProduto(id);
-//                 }
-//             );
-//         }
-//     );
-// }
+    produtosFiltrados.forEach(function (produto) {
+            const artigo = document.createElement("article");
+            artigo.className = "produto-card";
+            artigo.innerHTML = `
+                <div class="produto-imagem" aria-hidden="true">
+                    ${produto.imagem}
+                </div>
+                <div class="produto-conteudo">
+                    <p class="produto-categoria"> ${produto.categoria} </p>
+                    <h3> ${produto.nome} </h3>
+                    <p class="produto-descricao"> ${produto.descricao} </p>
+                    <div class="produto-rodape">
+                        <span class="produto-preco"> ${formatarMoeda(produto.preco)} </span>
+                        <button class="produto-adicionar" type="button" data-id="${produto.id}"> Adicionar </button>
+                    </div>
+                </div>
+            `;
+            listaProdutosElemento.appendChild(artigo);
+        }
+    );
+
+    const botoesAdicionar = document.querySelectorAll(".produto-adicionar");
+
+    botoesAdicionar.forEach(function (botao) {
+            botao.addEventListener("click", function () {
+                    const id = Number(botao.dataset.id);
+                    selecionarProduto(id);
+                }
+            );
+        }
+    );
+}
 
 
 //     listaProdutosElemento.innerHTML = "";
@@ -840,8 +881,7 @@ btnNovoPedido.addEventListener(
 // INICIALIZAÇÃO DO SISTEMA
 // =========================================
 
-renderizarCategorias();
-
 carregarProdutos();
-
+renderizarCategorias();
+renderizarProdutos();
 renderizarPedido();
